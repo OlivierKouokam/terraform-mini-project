@@ -37,15 +37,15 @@ resource "aws_instance" "my_ec2" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo apt-get update -y",
-      "sudo apt-get install -y nginx",
+      "sudo apt update -y",
+      "sudo apt install -y nginx",
       "sudo systemctl start nginx"
     ]
 
     connection {
       type        = "ssh"
       user        = "ubuntu"
-      private_key = file("C:/Users/OK_MEDIA/Documents/TP/cours-terraform/mini-projet/.secret_credentials/devops-olivier.pem")
+      private_key = file("C:/Users/EASYCONSULTING/Downloads/devops.pem")
       host        = self.public_ip
     }
   }

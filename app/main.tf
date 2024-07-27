@@ -1,17 +1,17 @@
 provider "aws" {
   region                   = "us-east-1"
-  shared_credentials_files = ["../.secret_credentials/aws_credentials"]
+  shared_credentials_files = ["../.secrets/credentials"]
 }
-
+/*
 terraform {
   backend "s3" {
     bucket                   = "terraform-backend-olivier"
     key                      = "olivier-miniprojet.tfstate"
     region                   = "us-east-1"
-    shared_credentials_files = ["../.secret_credentials/aws_credentials"]
+    shared_credentials_files = ["../.secrets/credentials"]
   }
 }
-
+*/
 module "sg" {
   source  = "../modules/security_group_module"
   sg_name = "allow_ssh_http_https_traffic"
@@ -32,8 +32,9 @@ module "ec2" {
   instance_type = "t2.micro"
   //public_ip     = module.eip.output_eip
   sg_name = module.sg.output_sg_name
+  key_name = "devops"
   aws_common_tag = {
-    Name = "ec2-mini-projet-23-10-2023"
+    Name = "ec2-mini-projet"
   }
 }
 
